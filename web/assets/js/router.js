@@ -67,6 +67,13 @@ export async function handleRoute() {
     const isNewRoute = route.pathname !== _currentPathname;
     _currentPathname = route.pathname;
 
+    // Don't re-render the page on auth token refreshes (tab switch back).
+    // Only re-render if the route actually changed.
+    if (!isNewRoute) {
+        updateActiveNav(route.pathname);
+        return;
+    }
+
     setLoading(view, "Loading…");
     try {
         await match.handler(view, { ...route.params, ...match.params, query: route.params });
@@ -76,7 +83,7 @@ export async function handleRoute() {
     }
 
     document.getElementById("view").focus({ preventScroll: true });
-    if (isNewRoute) window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0 });
     updateActiveNav(route.pathname);
 }
 
