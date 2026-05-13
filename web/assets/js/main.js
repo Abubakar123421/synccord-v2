@@ -46,9 +46,11 @@ function mountNavScrollState() {
 (async () => {
     await bootstrapAuth();
     await renderAuthSlot();
-    onAuthChange(async () => {
+    onAuthChange(async (session, event) => {
+        // TOKEN_REFRESHED fires on every tab switch — ignore it, don't re-render.
+        if (event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION") return;
         await renderAuthSlot();
-        handleRoute(); // re-render current view on login/logout
+        handleRoute(); // re-render on actual sign in / sign out
     });
     startRouter();
     mountParticleField();

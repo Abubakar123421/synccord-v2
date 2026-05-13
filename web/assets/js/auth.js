@@ -7,9 +7,9 @@ const listeners = new Set();
 export async function bootstrapAuth() {
     const { data } = await sb.auth.getSession();
     currentSession = data.session ?? null;
-    sb.auth.onAuthStateChange((_event, session) => {
+    sb.auth.onAuthStateChange((event, session) => {
         currentSession = session;
-        listeners.forEach((fn) => fn(session));
+        listeners.forEach((fn) => fn(session, event));
     });
 }
 
