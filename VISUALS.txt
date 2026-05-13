@@ -1,0 +1,568 @@
+SYNCCORD V2 — COMPLETE VISUAL REFERENCE
+========================================
+Use this file to replicate the site design on Replit or anywhere else.
+Everything below is exact — colors, sizes, animations, layout.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DESIGN TOKENS (CSS VARIABLES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background colors:
+  --bg:      #080808   (near-black, the main page background)
+  --bg-2:    #111111   (slightly lighter, used for modals)
+  --bg-3:    #161616   (slightly lighter still)
+
+Surface (glass cards):
+  --surface:   rgba(28, 28, 28, 0.7)   (blurred dark glass)
+  --surface-2: rgba(36, 36, 36, 0.85)
+
+Borders:
+  --border:        rgba(255, 255, 255, 0.08)   (very subtle white)
+  --border-strong: rgba(255, 215, 0, 0.35)     (gold, used on featured cards)
+
+Text:
+  --text:       #f8f8f5   (near-white, main text)
+  --text-muted: #a8a8a8   (grey, secondary text)
+  --text-soft:  #6f6f6f   (darker grey, fine print)
+
+Accent (GOLD — the signature color):
+  --accent:      #FFD700              (bright gold)
+  --accent-2:    #FFF000              (brighter yellow, hover states)
+  --accent-soft: rgba(255,215,0,0.6)
+  --accent-dim:  rgba(255,215,0,0.12)  (very faint gold, tag backgrounds)
+  --accent-mid:  rgba(255,215,0,0.25)
+  --accent-glow: rgba(255,215,0,0.55)
+
+Status colors:
+  --success: #40c480
+  --warn:    #f8b840
+  --danger:  #e85860
+
+Glow shadows:
+  --glow-1: 0 0 40px rgba(255,215,0,0.18)
+  --glow-2: 0 0 60px rgba(255,215,0,0.28)
+  --glow:   0 0 32px rgba(255,215,0,0.55)
+
+Border radius:
+  --radius-sm: 8px
+  --radius:    14px
+  --radius-lg: 22px
+
+Fonts (all from Google Fonts):
+  Display / headings:  "Syne" (weights 600, 700, 800)
+  Body / UI:           "Inter" (weights 400, 500, 600, 700)
+  Monospace / labels:  "DM Mono" (weights 400, 500)
+
+  Rule: h1, h2, h3, nav links, buttons → Syne
+        tags, labels, footer fine print, marquee, scroll indicator → DM Mono (uppercase)
+        everything else → Inter
+
+Max content width: 1200px (centered, full-bleed background)
+Topbar height:     64px
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. BODY / PAGE BACKGROUND
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Solid background: #080808
+
+Layered on top (CSS radial-gradient overlays on body):
+  - Top-left: 900×600px gold radial-gradient at 20% -10%, opacity 6%, fades to transparent at 60%
+  - Top-right: 700×500px gold radial-gradient at 100% 0%, opacity 4%, fades to transparent at 60%
+
+Effect: very subtle warm gold glow bleeding from the top two corners.
+The rest of the page is pure near-black.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. BACKGROUND PARTICLE FIELD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A full-screen canvas fixed behind everything (z-index: 0, pointer-events: none).
+It renders 320 particles on desktop, 140 on mobile.
+
+Particle colors (rotating):
+  - rgba(255, 245, 200, 0.9)  — warm white
+  - rgba(255, 215, 0, 0.95)   — bright gold
+  - rgba(255, 240, 0, 0.85)   — yellow
+
+Behavior:
+  - Free-floating drift: each particle has a "home" point it drifts around gently
+  - Mouse repulsion: particles scatter away from the cursor within 110px radius
+  - On scroll past 25% of the hero section: particles morph/converge into a robot emoji
+    shape (sampled pixel positions from drawing the 🤖 emoji on an offscreen canvas).
+    If the emoji doesn't render, a path-drawn robot head is used as fallback.
+  - Scroll back up: particles return to free drift
+  - The transition uses a spring system (SPRING=0.06, FRICTION=0.86, DRIFT_SPRING=0.0012)
+  - Particle size: ~1.6px base radius, varies per particle
+
+The fallback CSS (shown before JS loads) is a slow 60s drifting radial-gradient:
+  4 tiny dots at 20%/30%, 70%/60%, 50%/80%, 90%/20% — white and gold, 0.5 opacity.
+  The JS canvas overrides this and makes it transparent.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. CUSTOM CURSOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A custom gold arrow cursor replaces the system cursor everywhere on desktop.
+(On touch/coarse-pointer devices the OS cursor is restored.)
+
+The cursor is a yellow (#FFD700) SVG arrow shape (like the default OS arrow but
+gold-colored with a black stroke), 28×28px, encoded as a base64 data URI.
+
+  Default cursor: the arrow shape, hotspot at 4,2
+  Pointer cursor (links/buttons): same arrow shape, same hotspot
+
+The shape path: M5.5,3.5 L21.5,13.5 L14,15.5 L19.5,24.5 L16.5,26.5 L11,17.5 L5.5,22.5 Z
+(This is a classic arrow/pointer silhouette rotated slightly, filled gold, black outline.)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TOP NAVIGATION BAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Height: 64px. Position: sticky at top.
+Default state: transparent background, no border.
+On scroll (>8px): background rgba(8,8,8,0.85), backdrop-filter blur(20px) saturate(140%),
+                  bottom border rgba(255,255,255,0.08).
+Transition: 0.25s ease on background/backdrop/border.
+
+Left side — Logo:
+  - Small 22×22px square with border-radius 6px
+  - Background: conic-gradient from 220deg — gold → bright yellow → gold
+  - Box-shadow: 0 0 18px rgba(255,215,0,0.55)  (gold glow)
+  - Slowly rotates: 360° over 14 seconds, linear, infinite
+  - Next to it: "SyncCord" text in Syne 700, 1.05rem
+
+Center — Nav links (Syne, 600 weight, ~0.95rem):
+  Home · Builder · Forum · Premium · Support
+  - Default color: --text-muted (#a8a8a8)
+  - Hover/active: color becomes --text (#f8f8f5)
+  - Hover underline effect: a 2px gold line slides in from the left using
+    background-size animation (0% → 100%) over 0.35s cubic-bezier(.2,.8,.2,1)
+  - No background highlight, just the underline
+
+Right side:
+  - Auth slot: Sign In button (ghost style) and/or avatar when logged in
+  - On mobile: hamburger icon button (3 horizontal lines SVG, 22×22)
+
+Mobile menu (breakpoint: 760px):
+  - Nav links hidden by default
+  - Hamburger shown instead
+  - On tap: nav drops down as a column overlay
+    Background: rgba(11,10,20,0.97), backdrop-filter blur(18px)
+    Full width, below topbar, left/right aligned to screen edges
+    Each link gets 0.7rem 1rem padding
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. HERO SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Layout: CSS Grid, two equal columns (1fr 1fr), gap: 2rem + 7% column gap.
+Max width: 1300px, centered.
+Min height: 90vh.
+Padding: 5rem on top/bottom, clamp(1.25rem, 4vw, 4rem) on sides.
+On mobile (≤760px): single column stacked.
+
+--- LEFT COLUMN (hero-text) ---
+
+Badge (top):
+  Pill shape (border-radius 999px), gold border (rgba(255,215,0,0.25)),
+  gold background (rgba(255,215,0,0.12)), gold text (#FFD700).
+  Contains a small bolt lightning icon (SVG, 16×16, in a 32×32 icon tile)
+  and the text "SYNCCORD V2 — NOW LIVE" in DM Mono uppercase.
+  Gently breathes: scale 1 ↔ 1.04 over 3s ease-in-out infinite.
+
+H1 heading:
+  Text: "Build your own bot"
+  Font: Syne 800, clamp(2.4rem, 5vw, 4.5rem), line-height 1.05, letter-spacing -0.025em
+  Color: #f8f8f5 (near white)
+  Margin: 0
+
+Subheading:
+  Text: "No coding required."
+  Font: Inter, ~1.35rem (--fs-lg), color #a8a8a8 (--text-muted)
+
+CTA buttons (flex row, gap 0.75rem):
+  1. Primary button — "Get started — free" (or "Open the builder →" if logged in)
+     Background: #FFD700 (gold), color: #0a0a0a (near-black), font-weight 700
+     Border-radius: 10px, padding: 0.85rem 1.5rem (~btn-lg)
+     Box-shadow: 0 6px 20px rgba(255,215,0,0.25)
+     Hover: shadow becomes 0 12px 36px rgba(255,215,0,0.45), lifts 1px
+     Hover: radial shine effect from mouse position (white radial gradient overlay)
+
+  2. Ghost button — "Browse the forum"
+     Transparent background, border: rgba(255,215,0,0.35)
+     Hover: background rgba(255,215,0,0.12), border gold, text gold
+
+Stats row (flex, gap 2rem, wraps on mobile):
+  Three stat blocks side by side:
+    "49"   → "slash commands"   (animates 0 → 49 on page load)
+    "20+"  → "AI commands"      (animates 0 → 20+)
+    "∞"    → "characters you can build"
+
+  Each block: number in Syne, large (~2rem), with gold text-shadow glow
+              label in Inter muted grey below it
+
+--- RIGHT COLUMN (hero-media) ---
+
+A canvas element (max 520×~480px, ratio ~1:0.92).
+Runs the neural network animation described in section 8.
+
+--- DECORATIVE ELEMENTS ---
+
+Hero Orb (absolutely centered behind both columns, z-index -1):
+  - Circular div, width clamp(280px, 55vw, 520px), aspect-ratio 1:1
+  - Background: radial-gradient gold glow at center, fades out at 70%
+    rgba(255,215,0,0.07) center → transparent
+  - Border: 1px solid rgba(255,215,0,0.06)
+  - Box-shadow: 0 0 40px rgba(255,215,0,0.18)
+  - Pulses: scale 1 ↔ 1.04, opacity 0.7 ↔ 1.0 over 6s ease-in-out infinite
+  - ::before pseudo — ring 8% larger than orb:
+    1px dashed border rgba(255,215,0,0.18), spins 360° over 20s linear infinite
+  - ::after pseudo — ring 16% larger than orb:
+    1px solid border rgba(255,215,0,0.10), spins 360° over 35s linear REVERSE
+
+Scroll indicator (absolutely positioned, bottom center of hero):
+  "SCROLL" text + "↓" arrow
+  Color: rgba(255,215,0,0.6) (gold, soft)
+  Font: DM Mono, 0.72rem, letter-spacing 0.25em, uppercase
+  Bounces: translateY(0) ↔ translateY(8px) + opacity 0.7 ↔ 1.0 over 2.2s ease-in-out infinite
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. MARQUEE STRIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sits directly below the hero section. Full-width (overflows the content column).
+
+Appearance:
+  - Solid gold background: #FFD700
+  - Dark text on gold: #0a0a0a
+  - Slightly skewed: transform: skewY(-0.8deg)  (subtle diagonal tilt)
+  - Vertical padding: 0.85rem
+  - Top/bottom borders: 1px solid rgba(0,0,0,0.2)
+  - Box-shadow: 0 12px 40px rgba(255,215,0,0.25)  (glow below)
+  - Margin: 5rem above and below
+
+Text (Syne 800, uppercase, letter-spacing 0.04em, 1.05rem):
+  "Build your bot  ✦  Self-hosted  ✦  49 commands  ✦  AI-powered  ✦  Discord-native  ✦  Free forever"
+  (doubled and looped — the ✦ separator is a CSS ::before pseudo-element)
+
+Animation:
+  - Scrolls left continuously
+  - Full cycle in 22s, linear, infinite
+  - Uses translateX(-50%) technique (content is doubled, so looping is seamless)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. HERO CANVAS — NEURAL NETWORK ANIMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The right column of the hero shows a living canvas animation.
+All colors are gold (#FFD700 / rgba(255,215,0,...)).
+Canvas background is transparent — blends with the dark page.
+
+Nodes: 46 total
+  - 7 are "hub" nodes (larger, with extra effects)
+  - 39 are regular nodes
+
+Node appearance:
+  - All breathe (gently pulse in size): radius oscillates with Math.sin(time + phase)
+  - Regular: core dot ~2–3.8px radius, rgba(255,215,0,0.82)
+              mid glow ring 2.2× radius, rgba(255,215,0,0.08)
+  - Hub: core dot ~4.5–6.5px radius, rgba(255,230,60,0.95) (slightly brighter)
+          mid glow ring 2.2×, rgba(255,215,0,0.14)
+          outer aura ring 3.5×, rgba(255,215,0,0.07)
+          expanding pulse ring that grows from node outward (~26px max), fades out
+
+Hub pulse rings:
+  Each hub cycles a ring that expands and fades over ~1.4 seconds.
+  The ring is drawn with ctx.stroke in rgba(255,215,0, alpha) where alpha starts
+  at 0.7 and decays by ×0.97 each frame. Radius grows from node center outward.
+
+Connection lines:
+  Any two nodes within 32% of canvas width get connected by a line.
+  Line color: rgba(255,215,0, alpha) where alpha = t² × 0.55 (t = 1 − dist/maxDist)
+  Line width: t × (1.4 if either node is a hub, else 0.8)
+  Effect: lines near their distance limit are nearly invisible; nodes close together
+  have bright, thick connections.
+
+Data pulses:
+  Bright dots that travel along edges between hub nodes.
+  A random hub edge spawns a pulse with probability 0.05% per frame.
+  The dot moves from one node to the other over ~1.8 seconds.
+  Appearance: 2.5px dot rgba(255,240,100,alpha) + 6px glow ring rgba(255,215,0,alpha×0.18)
+  Alpha = sin(t × π) — fades in and out as it travels.
+
+Physics:
+  - Each node has vx, vy velocity (initial ~±0.45 px/frame)
+  - Velocity dampens by ×0.985 each frame (very slow drift)
+  - Soft boundary: nodes bounce off edges with 60% velocity loss
+  - Mouse repulsion: within 90px, nodes are pushed away with force (1 - dist/90) × 1.8
+
+The canvas resizes on window resize and reinitialises nodes.
+Self-cleans when navigating away (checks canvas.isConnected).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. FEATURE CARDS SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header:
+  H2: "Everything you need" (Syne, --fs-xl ≈ 1.5–2rem)
+  Lede paragraph: "Industry-grade embeds, no rough edges, no fake features."
+  Color: --text-muted
+
+Grid: CSS auto-fit, minmax(260px, 1fr), gap 1.25rem
+8 feature cards, each card is a .card component (see section 11).
+
+Each card contains:
+  1. Icon tile (56×56px large size):
+     Gold-tinted square tile, border-radius 14px
+     Background: linear-gradient(135deg, rgba(255,215,0,0.20), rgba(255,215,0,0.04))
+     Border: 1px solid rgba(255,215,0,0.25)
+     Gold SVG icon inside (28×28)
+     Subtle inner glow + drop shadow
+
+  2. Feature title (Syne, 1.05rem, white)
+  3. Body text (Inter, 0.92rem, --text-muted)
+
+Features listed (icon, title, description):
+  ⚡ bolt     — "Stays in character"           — Persistent personality across messages...
+  🎯 target   — "Channel-scoped activation"    — Bot only replies in channels you enable...
+  ✨ sparkle  — "20+ AI commands"              — /ask, /summary, /vibecheck, /eli5...
+  📊 chartBar — "Polls, reminders, dice"       — Interactive button polls...
+  👥 users    — "User memory"                  — /remember pins facts about members...
+  🌐 globe    — "Built-in lookups"             — /wiki, /define, /serverinfo...
+  👋 handWave — "AI welcome messages"          — Each new member gets a unique greeting...
+  🔒 shieldLk — "Self-hosted, your keys"       — Download a Python file with your API keys...
+
+Cards animate in with staggered reveal: opacity 0 + translateY(28px) → visible,
+0.7s cubic-bezier(.2,.8,.2,1), each card delayed by 70ms × index.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. CTA (CALL TO ACTION) SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A single centered card with:
+  Background: linear-gradient(135deg, rgba(124,92,255,0.18), rgba(90,140,255,0.12))
+  Border: rgba(124,92,255,0.4)  (purple-ish, different from rest of site)
+  Text center-aligned, padding 3rem 1.5rem
+
+  H2: "Ready in 3 minutes"
+  Paragraph: "Sign up, fill in your character, paste your Discord and Groq tokens, download. That's it."
+  Primary gold button: "Create free account" (or "Open the builder" if logged in)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. CARD COMPONENT (used everywhere)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background: rgba(28,28,28,0.7)  (dark glass)
+Border: 1px solid rgba(255,255,255,0.08)
+Border-radius: 14px
+Padding: 1.5rem
+Backdrop-filter: blur(14px)  (glass blur effect)
+
+Hover:
+  border-color: rgba(255,215,0,0.45)   (gold border appears)
+  transform: translateY(-4px)           (lifts up)
+  box-shadow: 0 18px 40px rgba(255,215,0,0.16), 0 0 0 1px rgba(255,215,0,0.18)
+  (gold glow shadow + thin gold outline ring)
+Transition: 0.25s ease on border, transform, box-shadow.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. REVIEWS SECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header:
+  H2: "What people are saying"
+  Lede: "From the SyncCord community. Sign in to leave your own."
+
+Stats bar (flex row):
+  Total review count in large white text + "reviews" label
+  Average rating in --warn orange (#f8b840) + "avg rating" label
+
+Review form (only if logged in):
+  Card with "Write a review" heading
+  Star rating: 5 stars in RTL direction layout (pure CSS trick)
+    Default color: --text-soft (dark grey), selected/hover: --accent-2 (bright yellow)
+    Font-size 1.6rem stars
+  Textarea (3 rows, max 2000 chars)
+  "Post review" primary button (right-aligned)
+
+Review cards grid (auto-fit, minmax 260px):
+  Each review card has:
+    - Avatar: 40×40px circle
+      If has URL: img with object-fit cover
+      If no URL: gradient circle (gold → bright yellow) with initials
+    - Username (Inter 600) + time ago (DM Mono, muted, small)
+    - Stars: ★★★★★ in --accent-2 yellow, 1.1rem, letter-spacing 1px
+    - Review text: Inter, --fs-sm, --text-muted
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+13. FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background: rgba(11,10,20,0.6) with backdrop-filter blur(12px)
+Border-top: 1px solid rgba(255,255,255,0.08)
+Padding: 2rem 1.25rem 3rem
+
+Two-column grid (auto + 1fr):
+  Left: Logo mark + "SyncCord" text (same as nav)
+  Right: Links row right-aligned — Premium · Support · Forum · YouTube · Discord
+         Link color: --text-muted, hover: --text
+
+Below (full-width):
+  "© 2025 SyncCord. Self-host your bot, your data stays yours."
+  DM Mono, --fs-xs, --text-soft, center-aligned, with border-top 1px
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+14. TOAST NOTIFICATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fixed, bottom-right (1.25rem from edges), z-index 200.
+Stack vertically with 0.5rem gap.
+
+Each toast:
+  Background: rgba(36,36,36,0.85), backdrop-filter blur(14px)
+  Border: 1px solid rgba(255,215,0,0.35)
+  Border-radius: 10px, padding: 0.7rem 1rem
+  Box-shadow: 0 8px 24px rgba(0,0,0,0.45)
+  Animates in: opacity 0 + translateY(8px) → visible, 0.2s ease
+
+Variants (border color only changes):
+  success — rgba(64,196,128,0.55)   (green)
+  error   — rgba(232,88,96,0.55)    (red)
+  warn    — rgba(248,184,64,0.55)   (amber)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+15. AUTH MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Overlay: rgba(5,4,12,0.7), backdrop-filter blur(8px), z-index 100
+Modal card: max-width 420px, centered
+  Background: #111111
+  Border: 1px solid rgba(255,215,0,0.35)
+  Border-radius: 14px, padding: 2rem
+  Box-shadow: 0 24px 60px rgba(0,0,0,0.55)
+
+OAuth buttons (e.g. "Continue with GitHub"):
+  Background: rgba(255,255,255,0.04)
+  Border: rgba(255,255,255,0.08)
+  Border-radius: 10px, padding 0.7rem 1rem
+  Hover: rgba(255,255,255,0.07)
+  Provider logo (18×18) on the left
+
+"OR" divider: horizontal lines either side of text (pure CSS with flex + ::before/::after)
+
+Email/password fields:
+  Background: rgba(255,255,255,0.03), border rgba(255,255,255,0.08)
+  Focus: border gold, box-shadow 0 0 0 3px rgba(255,215,0,0.25)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+16. SCROLL REVEAL ANIMATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Elements with class .reveal start invisible and off-screen:
+  opacity: 0
+  transform: translateY(28px) scale(0.98)
+
+When they enter the viewport (IntersectionObserver adds .in):
+  opacity: 1
+  transform: none
+  transition: 0.7s cubic-bezier(.2,.8,.2,1) on both properties
+
+Staggered grids: each child has CSS var --i (0, 1, 2...)
+  transition-delay: calc(var(--i) * 70ms)
+  So cards appear one by one, 70ms apart.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17. POINTER GLOW EFFECT (on cards/sections)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the mouse moves over a card, a radial highlight follows the cursor.
+Implemented with JS setting --mx and --my CSS vars on the element,
+used by the .btn-primary::after pseudo-element's radial-gradient center.
+Cards and sections also use this for a subtle glow that tracks the mouse.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+18. LOADING SPINNER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+18×18px circle. Border: 2px transparent, border-top gold.
+Spins 360° over 0.8s linear infinite.
+Inline element shown inside buttons during async operations.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+19. RESPONSIVE BREAKPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+≤760px (mobile):
+  - Hero: 1-column stacked (canvas goes below text)
+  - Hero h1 font: clamp(2.2rem, 8vw, 3.2rem)
+  - Hero stats: gap reduced to 1.25rem
+  - Nav: hamburger + dropdown
+  - Footer: single column, centered
+  - Forum posts: slightly smaller padding
+  - Nested replies: less indentation
+
+Builder (≥920px):
+  Builder view switches to 2-column: form left, preview card sticky right (360px)
+
+All typography uses fluid clamp() sizes — no hard breakpoint jumps.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+20. PREFERS-REDUCED-MOTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When the user has reduced motion enabled:
+  - All reveal animations are instant (no opacity/transform transition)
+  - Particle background: no animation
+  - Logo mark, breathe, float, orb spin, marquee scroll, scroll indicator: all paused
+  - Card hover: no translateY lift
+  - Neural network canvas: draws one static snapshot, no RAF loop
+  - Custom cursor: hidden, OS cursor restored
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+21. STAT NUMBER COUNT-UP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+On page load, the hero stats animate from 0 to their target number.
+49 (slash commands) and 20+ (AI commands) count up over ~1.2s using
+requestAnimationFrame with ease-out timing. The ∞ symbol is static.
+Numbers have gold text-shadow glow (0 0 24px rgba(255,215,0,0.45)).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+22. ROUTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hash-based SPA routing. Pages:
+  #/          → Landing page (this document)
+  #/builder   → Bot builder form (requires login)
+  #/forum     → Forum list (requires login)
+  #/forum/new → Create forum post
+  #/forum/:id → View forum post
+  #/profile   → User profile
+  #/premium   → Pricing tiers
+  #/support   → Support/contact
+
+Navigation links use data-route attributes and data-auth for protected routes.
+Active link gets .active class (triggers the gold underline animation).

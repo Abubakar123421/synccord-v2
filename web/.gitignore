@@ -1,0 +1,13 @@
+# DB setup — keep local, don't expose schema publicly
+supabase-setup.sql
+
+# Claude Code memory
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

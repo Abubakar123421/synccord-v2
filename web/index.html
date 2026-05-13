@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Primary SEO -->
+    <title>SyncCord — Free AI Discord Bot Maker | No Coding Required</title>
+    <meta name="description" content="Create your own AI-powered Discord character bot in minutes. Design the personality, paste your tokens, and download a ready-to-host Python file. No coding needed." />
+    <meta name="keywords" content="discord bot maker, create discord bot, AI discord bot, discord character bot, custom discord bot, no code discord bot, discord bot generator, AI chatbot discord, free discord bot, discord bot builder" />
+    <meta name="author" content="SyncCord" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://synccord-v2.vercel.app/" />
+    <meta name="theme-color" content="#0b0a14" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://synccord-v2.vercel.app/" />
+    <meta property="og:site_name" content="SyncCord" />
+    <meta property="og:title" content="SyncCord — Free AI Discord Bot Maker" />
+    <meta property="og:description" content="Design a custom AI Discord character bot in your browser. Download a ready-to-host Python file. No coding required. Free forever." />
+    <meta property="og:image" content="https://synccord-v2.vercel.app/assets/img/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SyncCord — AI Discord Bot Maker" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@synccord" />
+    <meta name="twitter:title" content="SyncCord — Free AI Discord Bot Maker" />
+    <meta name="twitter:description" content="Design a custom AI Discord character bot in your browser. Download a ready-to-host Python file. No coding required." />
+    <meta name="twitter:image" content="https://synccord-v2.vercel.app/assets/img/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SyncCord",
+        "url": "https://synccord-v2.vercel.app/",
+        "description": "Create your own AI-powered Discord character bot in minutes. Design the personality, paste your tokens, and download a ready-to-host Python file. No coding needed.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "AI Discord bot builder",
+            "Custom character personality",
+            "No coding required",
+            "Instant Python file download",
+            "Community forum",
+            "Self-hosted bots"
+        ],
+        "screenshot": "https://synccord-v2.vercel.app/assets/img/og-image.png",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "1"
+        }
+    }
+    </script>
+
+    <!-- FAQ Structured Data (helps Google show FAQs in search results) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I create a Discord bot with SyncCord?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Fill in your bot's personality, paste your Discord token and Groq API key into the builder, then hit Download. You get a ready-to-run Python file you host yourself."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is SyncCord free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The bot builder and download are completely free. A premium plan with extra features is available but optional."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to know how to code to use SyncCord?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No coding is required. The builder handles everything. You only need a Discord bot token and a free Groq API key."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Where is my bot data stored?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Your bot runs on your own machine or server. SyncCord never sees your tokens or messages — your data stays yours."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://iacfoidnupkviwhzdefq.supabase.co" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css" />
+</head>
+<body>
+    <a class="skip-link" href="#view">Skip to content</a>
+
+    <div id="particle-field" aria-hidden="true"></div>
+
+    <header class="topbar" id="topbar">
+        <a class="brand" href="#/" aria-label="SyncCord home">
+            <span class="brand-mark"></span>
+            <span class="brand-name">SyncCord</span>
+        </a>
+
+        <nav class="nav-primary" id="nav-primary" aria-label="Primary">
+            <div class="nav-pill">
+                <a data-route="/" href="#/">Home</a>
+                <a data-route="/builder" data-auth href="#/builder">Builder</a>
+                <a data-route="/forum" data-auth href="#/forum">Forum</a>
+                <a data-route="/premium" href="#/premium">Premium</a>
+                <a data-route="/support" href="#/support">Support</a>
+            </div>
+        </nav>
+
+        <div class="nav-actions">
+            <button id="nav-toggle" class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div id="auth-slot" class="auth-slot"></div>
+        </div>
+    </header>
+
+    <main id="view" class="view" tabindex="-1"></main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark"></span>
+                <span>SyncCord</span>
+            </div>
+            <div class="footer-links">
+                <a href="#/premium">Premium</a>
+                <a href="#/support">Support</a>
+                <a href="#/forum">Forum</a>
+                <a href="https://youtube.com/@agtop302" target="_blank" rel="noopener">YouTube</a>
+                <a href="https://discord.gg/qZXSrjdtM2" target="_blank" rel="noopener">Discord</a>
+            </div>
+            <p class="footer-fine">© <span id="footer-year"></span> SyncCord. Self-host your bot, your data stays yours.</p>
+        </div>
+    </footer>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <div id="modal-region" class="modal-region" aria-hidden="true"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js" defer></script>
+
+    <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SyncCord — V2 is here</title>
+    <meta http-equiv="refresh" content="9;url=https://synccord-v2.vercel.app/" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #080912;
+            color: #e8eaf2;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7c5cff;
+            opacity: 0;
+            animation: fadeIn 0.4s 0.3s ease forwards;
+        }
+
+        /* loading bar */
+        .bar-wrap {
+            width: 260px;
+            height: 3px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 99px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.4s 0.3s ease forwards;
+        }
+        .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #7c5cff, #a78bfa);
+            border-radius: 99px;
+            animation: fill 2s 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+        }
+        @keyframes fill { to { width: 100%; } }
+
+        /* typewriter */
+        .message {
+            font-size: clamp(1.6rem, 5vw, 2.6rem);
+            font-weight: 700;
+            text-align: center;
+            min-height: 1.2em;
+            opacity: 0;
+            animation: fadeIn 0.01s 2.5s forwards;
+        }
+        .message .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: #a78bfa;
+            vertical-align: middle;
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* countdown */
+        .sub {
+            font-size: 0.85rem;
+            color: #5a5f7a;
+            opacity: 0;
+            animation: fadeIn 0.4s 2.6s ease forwards;
+        }
+        .sub span { color: #a78bfa; font-weight: 600; }
+
+        /* button */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #7c5cff, #a78bfa);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            text-decoration: none;
+            box-shadow: 0 6px 24px rgba(124,92,255,0.35);
+            opacity: 0;
+            animation: fadeIn 0.5s 2.8s ease forwards;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,92,255,0.5); }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="logo">SyncCord</div>
+
+    <div class="bar-wrap"><div class="bar-fill"></div></div>
+
+    <div class="message" id="msg"><span class="cursor"></span></div>
+
+    <p class="sub">Redirecting in <span id="countdown">7</span>s…</p>
+
+    <a class="btn" href="https://synccord-v2.vercel.app/">Take me there →</a>
+
+    <script>
+        const TARGET = 'https://synccord-v2.vercel.app/';
+        const TEXT   = 'SyncCord V2 is out. 🚀';
+
+        // Typewriter — starts after loading bar (2.5s)
+        const msg = document.getElementById('msg');
+        let i = 0;
+        setTimeout(() => {
+            msg.innerHTML = '<span class="cursor"></span>';
+            const cursor = msg.querySelector('.cursor');
+            const interval = setInterval(() => {
+                if (i < TEXT.length) {
+                    msg.insertBefore(document.createTextNode(TEXT[i++]), cursor);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 55);
+        }, 2500);
+
+        // Countdown + redirect
+        let secs = 7;
+        const cd = document.getElementById('countdown');
+        setTimeout(() => {
+            const t = setInterval(() => {
+                secs--;
+                cd.textContent = secs;
+                if (secs <= 0) { clearInterval(t); location.href = TARGET; }
+            }, 1000);
+        }, 2600);
+    </script>
+</body>
+</html>

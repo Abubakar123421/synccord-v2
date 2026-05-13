@@ -1,0 +1,14 @@
+@echo off
+echo.
+echo ========================================
+echo   KAGGLE DATASET LINK
+echo ========================================
+echo.
+echo Student Habits vs Academic Performance
+echo.
+echo Link: https://www.kaggle.com/datasets/jayaantanaath/student-habits-vs-academic-performance
+echo.
+echo ========================================
+echo.
+pause
+ 

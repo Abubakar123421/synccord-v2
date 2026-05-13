@@ -1,0 +1,24 @@
+# Secrets
+.env
+bot/.env
+*.env.local
+
+# Bot runtime
+bot/bot_data.sqlite3
+bot/bot_data.sqlite3-journal
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Vercel
+.vercel
