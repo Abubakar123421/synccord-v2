@@ -16,6 +16,25 @@ synccord-v2 is a full-stack application designed to provide seamless synchroniza
 - **CSS** (7.1%) - Styling and visual design
 - **PLpgSQL** (3.3%) - Database procedures and queries
 
+### Backend
+- **Python** - Core backend framework
+- **Database** - PostgreSQL with PL/pgSQL procedures
+
+### Frontend
+- **JavaScript** - Interactive features and DOM manipulation
+- **HTML** - Page structure and markup
+- **CSS** - Responsive styling and UI/UX design
+
+### Database
+- **PostgreSQL** - Relational database system
+- **PL/pgSQL** - Server-side programming language for stored procedures
+
+### Development & Deployment
+- **Node.js** - JavaScript runtime
+- **npm** - Package manager for JavaScript dependencies
+- **pip** - Python package manager
+- **Git** - Version control
+
 ## Features
 
 - Real-time synchronization
@@ -32,6 +51,7 @@ synccord-v2 is a full-stack application designed to provide seamless synchroniza
 - Node.js and npm
 - PostgreSQL (for database operations)
 - A modern web browser
+- Git
 
 ### Installation
 
