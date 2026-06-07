@@ -1131,3 +1131,56 @@ a, button, input[type="button"], input[type="submit"], [role="button"], summary,
     .hero-stats { gap: 1.25rem; }
     .hero h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); }
 }
+
+/* ───────────────── video modal ───────────────── */
+
+.modal.video-modal {
+    max-width: 760px;
+    padding: 2.5rem 1.75rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    color: var(--text-soft);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: var(--cursor-pointer);
+    transition: color 0.15s ease, transform 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    z-index: 10;
+}
+
+.video-modal-close:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin: 1.25rem 0;
+    background: #000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}

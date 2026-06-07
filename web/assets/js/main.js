@@ -1,6 +1,7 @@
 import { bootstrapAuth, renderAuthSlot, onAuthChange } from "./auth.js";
 import { registerRoute, startRouter, handleRoute } from "./router.js";
 import { mountParticleField } from "./particles.js";
+import { showVideoPopup } from "./video-popup.js";
 
 import { renderLanding } from "./views/landing.js";
 import { renderBuilder } from "./views/builder.js";
@@ -55,4 +56,7 @@ function mountNavScrollState() {
     startRouter();
     mountParticleField();
     mountNavScrollState();
+    
+    // Show the tutorial video popup on first land
+    setTimeout(showVideoPopup, 1000);
 })();
