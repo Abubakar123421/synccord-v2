@@ -57,7 +57,7 @@ export function showVideoPopup() {
         // Video iframe container
         const videoContainer = el("div", { class: "video-container" },
             el("iframe", {
-                src: "https://www.youtube.com/embed/ZSHz5fCuS4o?autoplay=1",
+                src: "https://www.youtube.com/embed/wMCX3ktbOxs?autoplay=1",
                 title: "SyncCord V2 Tutorial Video",
                 frameborder: "0",
                 allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
@@ -83,7 +83,7 @@ export function showVideoPopup() {
             }, "Skip & Enter Site"),
             el("a", {
                 class: "btn btn-ghost btn-sm",
-                href: "https://www.youtube.com/watch?v=ZSHz5fCuS4o",
+                href: "https://www.youtube.com/watch?v=wMCX3ktbOxs",
                 target: "_blank",
                 rel: "noopener"
             }, "Watch on YouTube")
